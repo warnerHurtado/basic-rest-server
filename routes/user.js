@@ -2,9 +2,12 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
+
 const { userGet, userPut, userPost, userDelete } = require('../controllers/users');
 const { isValidRole, existEmail, existId } = require('../helpers/db-validators');
 const { validarCampos } = require('../middlewares/validar-campos');
+const { validateJWT } = require('../middlewares/validate-jwt');
+const { isAdminRole, haveRole } = require('../middlewares/validate-roles');
 
 const router = Router();
 
@@ -28,6 +31,9 @@ router.post('/',[
 ], userPost );
 
 router.delete('/:id', [ 
+    validateJWT,
+    //isAdminRole, ESTE ESTA VALIDADO SOLO PARA EL ADMIN
+    haveRole('ADMIN_ROLE', 'VENTAS_ROLE'),  //ESTE ESTA VALIDADO PARA DARLE PERMISO A VARIOS ROLES DE BORRAR USUARIOS
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existId ),
     validarCampos
