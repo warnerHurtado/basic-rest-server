@@ -1,5 +1,8 @@
 const Role = require('../models/role');
 const Usuario = require('../models/usuario');
+const Categoria = require('../models/categorie');
+const Producto = require('../models/product');
+const ObjectId = require('mongodb').ObjectID;
 
 
 const isValidRole =  async( role='' ) => {
@@ -20,6 +23,8 @@ const existEmail = async( email='' ) => {
 }
 
 const existId = async( id ='' ) => {
+
+    //Verificar si el correo existe
     const existId = await Usuario.findById( id );
 
     if( !existId ){
@@ -28,9 +33,34 @@ const existId = async( id ='' ) => {
 
 }
 
+const existIdCate = async( id ='' ) => {
+
+    //Verificar si el correo existe
+    const existId = await Categoria.findById( id );
+
+    if( !existId ){
+        throw new Error(`El ID ${ id } no se encuenta registrado`);
+    }
+
+}
+
+const existIdProdu = async( id ='' ) => {
+    
+    //Verificar si el correo existe
+    const existId = await Producto.findById(  { _id: id }  );
+
+    if( !existId ){
+        console.log('Hola mundo');
+        throw new Error(`El ID ${ id } no se encuenta registrado`);
+    }
+
+}
+
 module.exports = {
     isValidRole,
     existEmail,
-    existId
+    existId,
+    existIdCate,
+    existIdProdu
 }
 
