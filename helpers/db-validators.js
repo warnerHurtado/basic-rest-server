@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario');
 const Categoria = require('../models/categorie');
 const Producto = require('../models/product');
 const ObjectId = require('mongodb').ObjectID;
+const { Collection } = require('mongoose');
 
 
 const isValidRole =  async( role='' ) => {
@@ -56,11 +57,23 @@ const existIdProdu = async( id ='' ) => {
 
 }
 
+/**Validate allowed collections */
+
+const allowedCollection = ( collection = '', collections = [] ) => {
+    const included = collections.includes( collection );
+    if ( !included ) {
+        throw new Error(`La colección ${ collection } no es permitida, ${ collections }`);
+    }
+
+    return true;
+}
+
 module.exports = {
     isValidRole,
     existEmail,
     existId,
     existIdCate,
-    existIdProdu
+    existIdProdu,
+    allowedCollection
 }
 

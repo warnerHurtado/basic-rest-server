@@ -1,2 +1,6 @@
 node_modeles/
+
 .env
+
+uploads/products/**.*
+uploads/users/**.*

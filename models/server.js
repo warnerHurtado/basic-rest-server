@@ -1,6 +1,8 @@
-const express = require('express');
-const cors = require('cors');
+const express          = require('express');
+const cors             = require('cors');
 const { dbConnection } = require('../database/config');
+const fileUpload       = require('express-fileupload');
+
 class Server {
 
    constructor() {
@@ -12,7 +14,8 @@ class Server {
         authPath:       '/api/auth',
         categoriesPath: '/api/categories',
         productsPath:   '/api/products',
-        searchPath:     '/api/search'
+        searchPath:     '/api/search',
+        uploadPath:     '/api/uploads'
     }
     // this.usersPath = '/api/users';
     // this.authPath = '/api/auth';
@@ -42,6 +45,14 @@ class Server {
 
         // Directorio público 
         this.app.use( express.static('public'));
+
+        // FileUpload - carga de archivos
+
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true //Con esto le digo que si la ruta no existe que me la cree
+        }));
    }
 
    
@@ -51,6 +62,7 @@ class Server {
        this.app.use(this.paths.categoriesPath, require('../routes/caterories'));
        this.app.use(this.paths.productsPath,   require('../routes/products'));
        this.app.use(this.paths.searchPath,     require('../routes/search'));
+       this.app.use(this.paths.uploadPath,     require('../routes/uploads'));
    }
 
    listen() {
