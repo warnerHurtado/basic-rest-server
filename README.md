@@ -7,4 +7,4 @@ Recuerden que se debe ejecutar
 ```
     npm i
 ```
-Para reinstalar módulos de Node.
+Para reinstalar módulos de Node. Recuerda seleccionar el tag 1.
