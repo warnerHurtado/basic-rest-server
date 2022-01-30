@@ -7,4 +7,6 @@ Recuerden que se debe ejecutar
 ```
     npm i
 ```
-Para reinstalar módulos de Node. Recuerda seleccionar el tag 1.
+Para reinstalar módulos de Node. 
+Recuerda seleccionar el tag con la versión: v1.0.0.
+En el tag con la versión v1.0.1, se encuentra el mismo proyecto pero meramente funcional con MongoDB donde se implementan cruds de productos y la carga de archivos como imágenes y entre otros.
